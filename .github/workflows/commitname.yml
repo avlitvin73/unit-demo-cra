@@ -3,10 +3,11 @@ name: Commit name check
 run-name: ${{ github.actor }} is checking name of the commit ${{ github.event.name }}
 
 on:
-  workflow_dispatch:
   push:
     tags-ignore:
       - "v*"
+
+  workflow_dispatch:
   pull_request:
   workflow_call:
   
