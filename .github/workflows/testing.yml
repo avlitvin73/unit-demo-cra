@@ -6,8 +6,6 @@ run-name: ${{ github.actor }} is running tests on ${{ github.repository }}
 on:
   pull_request:
   push:
-    branches:
-      - main
     tags-ignore:
       - "v*"
   workflow_dispatch:
