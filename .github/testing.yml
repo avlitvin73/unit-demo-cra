@@ -1,0 +1,20 @@
+#there will be some workflow
+
+name: ${{ github.actor }} is running tests on ${{ github.repository }}
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
