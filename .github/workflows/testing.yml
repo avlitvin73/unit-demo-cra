@@ -8,11 +8,20 @@ on:
   push:
     branches:
       - main
+    tags-ignore:
+      - "v*"
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   testing:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    env:
+      CI: true
     steps:
       - name: Setting up the system
         uses: actions/checkout@v3
@@ -27,5 +36,16 @@ jobs:
 
       - name: Installing dependencies
         run: npm ci
+
+      - name: Running npm script for testing
+        run: npm run test:ci
+
+      - if: always()
+        name: Upload the artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest-report
+          path: ./test-report.html
+          retention-days: 30
 
 
