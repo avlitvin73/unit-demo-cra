@@ -1,4 +1,4 @@
-# for checking
+# for checking222
 name: Commit name check
 run-name: ${{ github.actor }} is checking name of the commit ${{ github.event.name }}
 
