@@ -1,6 +1,6 @@
 #there will be some workflow
 
-name: ${{ GITHUB_ACTOR }} is running tests on ${{ GITHUB_REPOSITORY_NAME }}
+name: ${{ github.actor }} is running tests on ${{ github.repository }}
 
 on:
   pull_request:
