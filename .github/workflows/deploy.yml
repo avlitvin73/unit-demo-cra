@@ -15,6 +15,10 @@ jobs:
 
   commitlint:
     uses: ./.github/workflows/commitname.yml
+
+  eslintandprettier:
+    uses: ./.github/workflows/lintandprettier.yml
+
     
   release:
     name: Making release and issue about it
@@ -22,6 +26,7 @@ jobs:
       - unit-tests
       - e2e-tests
       - commitlint
+      - eslintandprettier
 
     runs-on: ubuntu-latest
     defaults:
