@@ -32,7 +32,11 @@
         "test": "react-scripts test",
         "e2e": "playwright test --project=chromium && playwright show-report",
         "test:ci": "CI=true npm test -- --reporters=\"default\" --reporters=\"jest-html-reporter\" --reporters=\"jest-teamcity\"",
-        "e2e:ci": "CI=true playwright test --project=chromium"
+        "e2e:ci": "CI=true playwright test --project=chromium",
+        "lint:check": "eslint '**/*.{js,jsx,ts,tsx}'",
+        "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx}'",
+        "format:check": "prettier --check '**/*.{js,jsx,ts,tsx}'",
+        "format:fix": "prettier --write '**/*.{js,jsx,ts,tsx}'"
     },
     "eslintConfig": {
         "extends": [
@@ -61,5 +65,8 @@
         "@playwright/test": "^1.28.0",
         "@types/react-helmet": "^6.1.5",
         "jest-html-reporter": "^3.7.0",
-        "@commitlint/config-conventional": "^17.6.6"    }
+        "@commitlint/config-conventional": "^17.6.6",
+        "eslint": "^8.44.0",
+        "prettier": "^3.0.0"
+    }
 }
