@@ -1,5 +1,7 @@
 # CI/CD training project
 
+## For proper testing you need to be a collaborator of this project so feel free to write me on Telegram and i will add you
+
 ## About
 This project is a training for setting up the CI/CD proccess using GitHub Actions.
 The base project i forked is a simple to-do list app with some unit and e2e tests.
