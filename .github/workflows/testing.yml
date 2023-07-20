@@ -1,0 +1,52 @@
+#there will be some workflow
+
+name: Testing
+run-name: ${{ github.actor }} is running tests on ${{ github.repository }}
+
+on:
+  pull_request:
+  push:
+    branches: ['*']
+    tags-ignore:
+      - "v*"
+    
+
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    env:
+      CI: true
+    steps:
+      - name: Setting up the system
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Installing node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running npm script for testing
+        run: npm run test:ci
+
+      - if: always()
+        name: Upload the artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest-report
+          path: ./test-report.html
+          retention-days: 30
+
+

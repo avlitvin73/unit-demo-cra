@@ -1,0 +1,53 @@
+name: Integrational testing
+run-name: ${{ github.actor }} is running e2e tests on ${{ github.repository }}
+
+on:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  unit-test:
+    name: E2E testing
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+
+    env:
+      CI: true
+
+    steps:
+      - name: Setting up the system
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Installing node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Installing Playwright 
+        run: npx playwright install chromium
+
+      - name: Download X11 display server library 
+        run: |
+          sudo apt-get update
+          sudo apt-get install xvfb -y
+
+      - name: Running e2e tests
+        run: xvfb-run npm run e2e:ci
+
+      - if: always()
+        name: Upload the artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: ./playwright-report
+          retention-days: 30

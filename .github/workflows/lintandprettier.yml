@@ -1,0 +1,67 @@
+name: Run ESLint and prettier formatting
+run-name: ${{ github.actor }} is running ESLint checks and prettier formatting on ${{ github.repository }}
+
+on:
+  push:
+    tags-ignore:
+      - "v*"
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    steps:
+      - name: Setting up the system
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Installing node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running ESlint npm script
+        run: npm run lint:check
+
+      - name: If checks failed
+        if: failure()
+        run: echo "Your code failed on ESLint check, please locally run 'npm run lint:fix' command to fix the issues and update your commit"
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    steps:
+      - name: Setting up the system
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Installing node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running prettier format npm script
+        run: npm run format:check
+
+      - name: If checks failed
+        if: failure()
+        run: echo "Your code failed on prettier format check, please locally run 'npm run format:fix' command to fix the issues and update your commit"

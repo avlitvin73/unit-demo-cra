@@ -11,7 +11,6 @@
         "@types/node": "^18.11.9",
         "@types/react": "^18.0.25",
         "@types/react-dom": "^18.0.9",
-        "jest-junit": "^16.0.0",
         "jest-teamcity": "^1.11.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -32,8 +31,12 @@
         "eject": "react-scripts eject",
         "test": "react-scripts test",
         "e2e": "playwright test --project=chromium && playwright show-report",
-        "e2e-ci": "playwright test --project=headlesschrome",
-        "test-ci": "CI=true npm test -- --reporters=\"default\" --reporters=\"jest-html-reporter\" --reporters=\"jest-junit\""
+        "test:ci": "CI=true npm test -- --reporters=\"default\" --reporters=\"jest-html-reporter\" --reporters=\"jest-teamcity\"",
+        "e2e:ci": "CI=true playwright test --project=chromium",
+        "lint:check": "eslint '**/*.{js,jsx,ts,tsx}'",
+        "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx}'",
+        "format:check": "prettier --check '**/*.{js,jsx,ts,tsx}'",
+        "format:fix": "prettier --write '**/*.{js,jsx,ts,tsx}'"
     },
     "eslintConfig": {
         "extends": [
@@ -59,11 +62,11 @@
         ]
     },
     "devDependencies": {
-        "@commitlint/cli": "^17.6.6",
-        "@commitlint/config-conventional": "^17.6.6",
         "@playwright/test": "^1.28.0",
         "@types/react-helmet": "^6.1.5",
-        "conventional-changelog-conventionalcommits": "^6.1.0",
-        "jest-html-reporter": "^3.7.0"
+        "jest-html-reporter": "^3.7.0",
+        "@commitlint/config-conventional": "^17.6.6",
+        "eslint": "^8.44.0",
+        "prettier": "^3.0.0"
     }
 }
